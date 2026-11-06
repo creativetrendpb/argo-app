@@ -1,25 +1,12 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: creative-trend-pb
-  namespace: creative-trend-pb
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: creative-trend-pb
-  template:
-    metadata:
-      labels:
-        app: creative-trend-pb
     spec:
       containers:
         - name: app
-          image: nginx:alpine
+          image: danieltomazdev/netflix-clone:prod
           ports:
             - containerPort: 80
+          env:
+            - name: VITE_TMDB_API_KEY
+              value: "fa7e4d688f969937e7c96565355b6d51"  # It's recommended to change to your own key
           envFrom:
             - configMapRef:
                 name: app-config
-            - secretRef:
-                name: app-secret
