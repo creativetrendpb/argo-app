@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: creative-trend-pb
+  namespace: creative-trend-pb
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: creative-trend-pb
+  template:
+    metadata:
+      labels:
+        app: creative-trend-pb
+    spec:
+      containers:
+        - name: app
+          image: nginx:alpine
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: app-config
+            - secretRef:
+                name: app-secret
